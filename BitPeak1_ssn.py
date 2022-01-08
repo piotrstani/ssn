@@ -1,16 +1,12 @@
 from faker import Faker
-
 import pandas as pd
 from datetime import datetime
 
 
 def get_date_from_ssn(ssn_str):
-
     true_ssn_day = int(ssn_str[4:6])
-
     month_to_decode = int(ssn_str[2:4])
     true_ssn_month = month_to_decode % 20
-
     year_to_decode = int(ssn_str[0:2])
     if 1 <= month_to_decode <= 12:
         true_ssn_year = 1900 + year_to_decode
@@ -24,14 +20,13 @@ def get_date_from_ssn(ssn_str):
         true_ssn_year = 1800 + year_to_decode
     else:
         true_ssn_year = 0
-
     true_ssn_date = datetime(true_ssn_year, true_ssn_month, true_ssn_day)
     print(f" {ssn_str} --- {true_ssn_date}  y {ssn_str[0:2]}, --> {true_ssn_year}, m {ssn_str[2:4]} --> {true_ssn_month}, d {ssn_str[4:6]}")
     return true_ssn_date
 
+
 # 1
 # %%time
-
 
 def generate_ssns(elements):
     start = datetime.now()
@@ -44,9 +39,9 @@ def generate_ssns(elements):
     ssns = pd.Series(ssns_list)
     end = datetime.now()
     print(f"Time ----- {end - start}")
-    with open('test.txt', 'a+') as file:
+    with open('run_log.txt', 'a+') as file:
         file.write(f"gs  at time {start} ---> {end - start}, {elements}\n")
-    return print(ssns)
+    return ssns
 
 # 2
 # %%time
@@ -175,7 +170,7 @@ def validate_ssn(ssn_str, sex, in_birth_dte):
     return "0 - Incorrect PESEL - must be 11 digits"
 
 
-print(get_date_from_ssn('05250142649'))
+
 
 generate_ssns(1)
 generate_unique_ssns(10, 'F', '1800-01-01', '2200-01-01')
