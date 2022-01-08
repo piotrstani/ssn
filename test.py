@@ -4,6 +4,31 @@ import pandas as pd
 from datetime import datetime
 
 
+# ZADANIE 1
+def generate_ssns(elements):
+    # log time
+    # start = datetime.now()
+    # log time
+
+    fake = Faker(locale='pl_PL')
+    ssns_list = []
+    for element in range(elements):
+        value = fake.ssn()
+        ssns_list.append(value)
+
+    ssns_series = pd.Series(ssns_list)
+
+    # log time
+    # end = datetime.now()
+    # print(f"Time ----- {end - start}\n")
+    # with open('run_log.txt', 'a+') as file:
+    #    file.write(f"gs  at time {start} ---> {end - start}, {elements}\n")
+    # log time
+
+    return ssns_series
+
+
+# ZADANIE 2
 def is_valid_date_format(date_str):
     try:
         datetime.strptime(date_str, '%Y-%m-%d')
@@ -40,30 +65,6 @@ def get_date_from_ssn(ssn_str):
     true_ssn_date = datetime(true_ssn_year, true_ssn_month, true_ssn_day)
     return true_ssn_date
 
-# ZADANIE 1
-def generate_ssns(elements):
-    # log time
-    # start = datetime.now()
-    # log time
-
-    fake = Faker(locale='pl_PL')
-    ssns_list = []
-    for element in range(elements):
-        value = fake.ssn()
-        ssns_list.append(value)
-
-    ssns_series = pd.Series(ssns_list)
-
-    # log time
-    # end = datetime.now()
-    # print(f"Time ----- {end - start}\n")
-    # with open('run_log.txt', 'a+') as file:
-    #    file.write(f"gs  at time {start} ---> {end - start}, {elements}\n")
-    # log time
-
-    return ssns_series
-
-# ZADANIE 2
 def generate_unique_ssns(elements, sex, in_start_dte, in_end_dte):
     # log time
     # start = datetime.now()
@@ -117,7 +118,7 @@ def validate_ssn(ssn_str, sex, in_birth_dte):
         check_digit = 10 - sum_digit % 10
         if check_digit == 10:
             check_digit = 0
-        # OUTPUT
+
         if check_digit == int(ssn_str[10]):
             check_digit_flag = '1'
         else:
@@ -145,8 +146,11 @@ def validate_ssn(ssn_str, sex, in_birth_dte):
         else:
             is_valid_date_format(in_birth_dte)
             true_ssn_date = get_date_from_ssn(ssn_str)
+            print(true_ssn_date)
             birth_dte = datetime.strptime(in_birth_dte, '%Y-%m-%d')
+            print(birth_dte)
             if true_ssn_date == birth_dte:
+                print('tu')
                 check_dte_flag = '1' # date of birth AS expected
             else:
                 check_dte_flag = '0' # date of birth OTHER than expected
@@ -158,44 +162,9 @@ def validate_ssn(ssn_str, sex, in_birth_dte):
 
 
 # ZADANIE 3
-print('\ngenerate_ssns -----------------------')
-print(generate_ssns(10))
-print('\ngenerate_unique_ssns F, 1900-01-01, 1999-01-19 -------------')
-print(generate_unique_ssns(10, 'F', '1900-01-01', '1999-01-19'))
+test_set4 = ['93031378554']
+print(validate_ssn('93031378554', 'F', '1999-03-13')+'exp F:0,1999-03-13:1')
 
-# ZADANIE 4
-print('\nvalidate_ssn -----------------2')
-print(validate_ssn(generate_unique_ssns(1, 'F', '1900-01-01', '2099-12-31')[0], 'dowolna', 'dowolna'))
-print(validate_ssn(generate_unique_ssns(1, 'M', '1900-01-01', '2099-12-31')[0], 'dowolna', 'dowolna'))
-print(validate_ssn(generate_unique_ssns(1, 'M', '1900-01-01', '2099-12-31')[0], 'M', '1999-04-30'))
-print(validate_ssn(generate_unique_ssns(1, 'F', '1900-01-01', '2099-12-31')[0], 'F', '1999-04-30'))
-print(validate_ssn(generate_unique_ssns(1, 'M', '1900-01-01', '2099-12-31')[0], 'F', '1999-04-30'))
-print(validate_ssn(generate_unique_ssns(1, 'F', '1900-01-01', '2099-12-31')[0], 'M', '1999-04-30'))
 
-print('\n\nvalidate_ssn -----------------3')
-test_set0 = ['123456789012', '1234567890', '', 'abcdefghijk','1ikl..+./']
-test_set1 = ['93120611479', '08292960201', '05322226924']
-test_set2 = ['93120611478', '08292960208', '05322226925']
 test_set3 = ['06222487465']
-
-
-print('test_set0')
-for test in test_set0:
-    print(validate_ssn(test, 'F', '1986-04-30')+'exp:PESEL must have 11 digits')
-print('test_set1')
-for test in test_set1:
-    print(validate_ssn(test, 'F', '1986-04-30')+'exp:correct_pesel:0')
-print('test_set2')
-for test in test_set2:
-    print(validate_ssn(test, 'F', '2006-06-14')+'exp:correct_pesel:1')
-print('test_set3')
-for test in test_set3:
-    print(validate_ssn(test, 'F', '2006-02-24')+'exp:2006-02-24:0')
-
-
-print('\nis_valid_date_format -----------------------')
-#print(is_valid_date_format('2021-31-01'))
-print('\nis_valid_date -----------------------')
-#print(is_valid_date(1999, 4, 31))
-print('\nget_date_from_ssn -----------------------')
-#print(get_date_from_ssn('06224487465'))
+print(validate_ssn('06222487465', 'M', '2006-02-24')+'exp F:0,2006-02-24:1')
