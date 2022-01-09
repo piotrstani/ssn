@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d289d7f-a4a1-4c04-a96a-9935b8417e32" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/BitPeak_JDE_Z1_PIOTR_STANI-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/BitPeak_JDE_Z1_PIOTR_STANI-checkpoint.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BitPeak_JDE_Z1_PIOTR_STANI.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/BitPeak_JDE_Z1_PIOTR_STANI.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
